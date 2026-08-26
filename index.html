@@ -15,24 +15,19 @@
 </head>
 <body>
 <div id="app">
-
-  <!-- Top bar -->
   <header class="topbar">
-    <span class="flag">🇵🇹</span>
-    <span class="brand">Portugal 2026</span>
+    <span>🇵🇹</span><span class="brand">Portugal 2026</span>
     <span class="spacer"></span>
     <button class="iconbtn" id="btn-search" aria-label="Suche">🔍</button>
   </header>
 
-  <!-- Day-by-day -->
   <nav class="daybar" id="daybar" aria-label="Tagesnavigation"></nav>
 
-  <!-- Hero mit Collage-Rahmen (Bilder kommen in Build V3) -->
   <section class="hero">
     <div class="collage" aria-hidden="true">
-      <figure class="c0 ph" data-label="Ponta da Piedade" id="col0"></figure>
-      <figure class="ph" data-label="Alfama" id="col1"></figure>
-      <figure class="ph" data-label="Vale do Lobo" id="col2"></figure>
+      <figure class="c0 ph" data-label="Ponta da Piedade"></figure>
+      <figure class="ph" data-label="Alfama"></figure>
+      <figure class="ph" data-label="Vale do Lobo"></figure>
     </div>
     <div class="scrim"></div>
     <div class="inner">
@@ -43,42 +38,32 @@
     </div>
   </section>
 
-  <!-- KPIs -->
   <section class="kpis" id="kpis"></section>
 
-  <!-- Karte A -->
-  <section class="section"><div class="eyebrow">Die Reise in einem Bild</div>
-    <h2>Vom Tejo bis zur Algarve</h2>
-    <p class="lead">Fünf Stationen, ein Roadtrip. Tippe auf einen Punkt, um mehr zu sehen.</p>
+  <section class="section"><div class="eyebrow">Karten</div>
+    <h2>Die Reise auf der Karte</h2>
+    <p class="lead">Wähle eine Karte und tippe auf einen Punkt. Die Route folgt der Fahrstrecke.</p>
   </section>
+  <div class="maptabs" id="mapTabs"></div>
   <div class="mapwrap">
-    <div class="maphead"><span class="t" id="mapTitle">Portugal 2026</span>
-      <span class="hint">tippen für Details</span></div>
-    <div id="mapA-container"></div>
-    <div class="maplegend">
-      <span><i class="dotg"></i> Reisestationen</span>
-      <span>— — Route Lissabon → Faro</span>
-    </div>
+    <div class="maphead"><span class="t" id="mapTitle">Portugal 2026</span><span class="hint">tippen für Details</span></div>
+    <div id="map-container"></div>
+    <div class="maplegend" id="mapLegend"></div>
   </div>
 
-  <!-- Timeline -->
   <section class="section"><div class="eyebrow">Timeline</div>
     <h2>Fünf Kapitel</h2>
     <p class="lead">Tippe auf ein Kapitel für die Tagesübersicht.</p>
   </section>
   <div class="timeline" id="timeline"></div>
 
-  <div class="foot">
-    App Shell V2 · interaktive Karte A, Datenmodell-Anbindung und Vollsuche aktiv.<br>
-    Bilder, Kapitelinhalte und Karten B–F folgen in den nächsten Builds.
-  </div>
+  <div class="foot">App V3 · Karten A, B (Roadtrip) und C (Costa Vicentina) aktiv · Datenmodell & Vollsuche.<br>
+    Bilder sowie Karten D–F folgen in den nächsten Builds.</div>
 </div>
 
-<!-- Bottom sheet -->
 <div class="sheet-backdrop" id="sheet-backdrop"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 
-<!-- Search overlay -->
 <div class="search-overlay" id="search-overlay">
   <div class="search-top">
     <input id="search-input" type="search" placeholder="Suchen: Ort, Tag, Golf, Fado, Strand …" autocomplete="off">

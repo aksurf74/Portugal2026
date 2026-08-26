@@ -1,0 +1,20 @@
+{
+ "A":{"id":"A","title":"Portugal 2026 · Gesamtübersicht","type":"overview","short":"Gesamt",
+      "pins":["lisbon","aljezur","lagos","albufeira","faro_airport"],
+      "route":["lisbon","aljezur","lagos","albufeira","faro_airport"],
+      "routePath":[[38.707751,-9.136592],[38.52,-8.94],[38.02,-8.62],[37.60,-8.55],[37.3175,-8.8015],[37.10,-8.79],[37.1028,-8.6730],[37.15,-8.45],[37.0891,-8.2479],[37.09,-8.10],[37.0144,-7.9659]]},
+ "B":{"id":"B","title":"Roadtrip Südwest","type":"route","short":"Roadtrip",
+      "pins":["lisbon","cabo_espichel","arrabida","comporta","sines","atlantic_basecamp"],
+      "route":["lisbon","cabo_espichel","arrabida","comporta","sines","atlantic_basecamp"],
+      "routePath":[[38.707751,-9.136592],[38.42,-9.20],[38.49,-8.97],[38.38,-8.78],[37.9562,-8.8698],[37.60,-8.62],[37.3320,-8.8350]],
+      "view":{"minLat":37.10,"maxLat":38.85,"minLon":-9.55,"maxLon":-8.35}},
+ "C":{"id":"C","title":"Costa Vicentina Explorer","type":"region","short":"Costa Vicentina",
+      "pins":["atlantic_basecamp","praia_amoreira","monte_clerigo","carrapateira","arrifana"],
+      "view":{"minLat":37.14,"maxLat":37.42,"minLon":-9.00,"maxLon":-8.70}},
+ "D":{"id":"D","title":"Lagos Explorer","type":"region","short":"Lagos",
+      "pins":["vila_palmeira","meia_praia","lagos_oldtown","lagos_marina","ponta_piedade","palmares"]},
+ "E":{"id":"E","title":"Golf Algarve Explorer","type":"theme","short":"Golf",
+      "pins":["palmares","salgados","oconnor","vale_lobo"]},
+ "F":{"id":"F","title":"São Rafael Explorer","type":"region","short":"São Rafael",
+      "pins":["nau_sao_rafael","praia_sao_rafael","sao_rafael_coast","sao_rafael_tennis","albufeira","faro_airport"]}
+}
