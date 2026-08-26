@@ -7,10 +7,10 @@
   "chapterId": "chapter_lisbon",
   "terms": [
    "fado",
-   "alfama",
+   "lissabon",
    "belem",
    "stadt",
-   "lissabon"
+   "alfama"
   ],
   "target": {
    "kind": "location",
@@ -24,9 +24,9 @@
   "sub": "city",
   "chapterId": "chapter_atlantic",
   "terms": [
-   "atlantik",
+   "aljezur",
    "costa vicentina",
-   "aljezur"
+   "atlantik"
   ],
   "target": {
    "kind": "location",
@@ -40,10 +40,10 @@
   "sub": "city",
   "chapterId": "chapter_lagos",
   "terms": [
-   "altstadt",
-   "lagos",
    "klippen",
-   "strand"
+   "lagos",
+   "strand",
+   "altstadt"
   ],
   "target": {
    "kind": "location",
@@ -73,8 +73,8 @@
   "sub": "airport",
   "chapterId": "chapter_resort",
   "terms": [
-   "rückreise",
    "faro flughafen",
+   "rückreise",
    "flug"
   ],
   "target": {
@@ -90,9 +90,9 @@
   "chapterId": "chapter_atlantic",
   "terms": [
    "cabo espichel",
+   "klippen",
    "aussicht",
-   "roadtrip",
-   "klippen"
+   "roadtrip"
   ],
   "target": {
    "kind": "location",
@@ -106,10 +106,9 @@
   "sub": "region",
   "chapterId": "chapter_atlantic",
   "terms": [
-   "serra da arrábida",
-   "panorama",
    "roadtrip",
-   "küstenstraße"
+   "serra da arrábida",
+   "panorama"
   ],
   "target": {
    "kind": "location",
@@ -123,10 +122,10 @@
   "sub": "village",
   "chapterId": "chapter_atlantic",
   "terms": [
+   "comporta",
    "lunch",
-   "dünen",
    "roadtrip",
-   "comporta"
+   "dünen"
   ],
   "target": {
    "kind": "location",
@@ -140,9 +139,9 @@
   "sub": "city",
   "chapterId": "chapter_atlantic",
   "terms": [
-   "hafen",
+   "sines",
    "roadtrip",
-   "sines"
+   "hafen"
   ],
   "target": {
    "kind": "location",
@@ -156,11 +155,11 @@
   "sub": "stay",
   "chapterId": "chapter_atlantic",
   "terms": [
-   "pool",
    "unterkunft",
    "basecamp",
-   "atlantic basecamp",
-   "surf"
+   "pool",
+   "surf",
+   "atlantic basecamp"
   ],
   "target": {
    "kind": "location",
@@ -208,9 +207,9 @@
   "sub": "viewpoint",
   "chapterId": "chapter_atlantic",
   "terms": [
-   "sunset",
-   "hochzeitstag",
    "klippen",
+   "hochzeitstag",
+   "sunset",
    "pontal da carrapateira"
   ],
   "target": {
@@ -225,10 +224,10 @@
   "sub": "beach",
   "chapterId": "chapter_lagos",
   "terms": [
-   "aussicht",
-   "praia da arrifana",
    "surf",
-   "westküste"
+   "aussicht",
+   "westküste",
+   "praia da arrifana"
   ],
   "target": {
    "kind": "location",
@@ -242,10 +241,10 @@
   "sub": "stay",
   "chapterId": "chapter_lagos",
   "terms": [
-   "pool",
-   "meia praia",
+   "vila palmeira beach resort",
    "unterkunft",
-   "vila palmeira beach resort"
+   "meia praia",
+   "pool"
   ],
   "target": {
    "kind": "location",
@@ -275,10 +274,10 @@
   "sub": "district",
   "chapterId": "chapter_lagos",
   "terms": [
+   "restaurants",
    "gassen",
-   "altstadt",
    "altstadt lagos",
-   "restaurants"
+   "altstadt"
   ],
   "target": {
    "kind": "location",
@@ -292,8 +291,8 @@
   "sub": "marina",
   "chapterId": "chapter_lagos",
   "terms": [
-   "hafen",
    "boot",
+   "hafen",
    "marina de lagos"
   ],
   "target": {
@@ -325,10 +324,10 @@
   "sub": "golf",
   "chapterId": "chapter_golf",
   "terms": [
-   "links",
    "meia praia",
+   "palmares golf",
    "golf",
-   "palmares golf"
+   "links"
   ],
   "target": {
    "kind": "location",
@@ -342,10 +341,10 @@
   "sub": "golf",
   "chapterId": "chapter_golf",
   "terms": [
-   "wasser",
+   "salgados golf",
    "lagune",
    "golf",
-   "salgados golf"
+   "wasser"
   ],
   "target": {
    "kind": "location",
@@ -361,8 +360,8 @@
   "terms": [
    "seen",
    "amendoeira o'connor jnr.",
-   "golf",
-   "championship"
+   "championship",
+   "golf"
   ],
   "target": {
    "kind": "location",
@@ -377,10 +376,10 @@
   "chapterId": "chapter_golf",
   "terms": [
    "klippen",
-   "finale",
-   "vale do lobo ocean",
    "atlantik",
-   "golf"
+   "golf",
+   "vale do lobo ocean",
+   "finale"
   ],
   "target": {
    "kind": "location",
@@ -394,10 +393,10 @@
   "sub": "stay",
   "chapterId": "chapter_resort",
   "terms": [
-   "resort",
-   "nau são rafael suites",
    "tennis",
-   "all inclusive"
+   "all inclusive",
+   "nau são rafael suites",
+   "resort"
   ],
   "target": {
    "kind": "location",
@@ -411,9 +410,9 @@
   "sub": "beach",
   "chapterId": "chapter_resort",
   "terms": [
-   "buchten",
    "praia de são rafael",
    "felsen",
+   "buchten",
    "strand"
   ],
   "target": {
@@ -428,8 +427,8 @@
   "sub": "trail",
   "chapterId": "chapter_resort",
   "terms": [
-   "küstenweg são rafael",
    "wandern",
+   "küstenweg são rafael",
    "küste"
   ],
   "target": {
