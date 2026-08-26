@@ -1,0 +1,16 @@
+{
+  "A": {"id":"A","title":"Portugal 2026 · Gesamtübersicht","type":"overview",
+        "pins":["lisbon","aljezur","lagos","albufeira","faro_airport"],
+        "route":["lisbon","aljezur","lagos","albufeira","faro_airport"]},
+  "B": {"id":"B","title":"Roadtrip Südwest","type":"route",
+        "pins":["lisbon","cabo_espichel","arrabida","comporta","sines","atlantic_basecamp"],
+        "route":["lisbon","cabo_espichel","arrabida","comporta","sines","atlantic_basecamp"]},
+  "C": {"id":"C","title":"Costa Vicentina Explorer","type":"region",
+        "pins":["atlantic_basecamp","praia_amoreira","monte_clerigo","carrapateira","arrifana"]},
+  "D": {"id":"D","title":"Lagos Explorer","type":"region",
+        "pins":["vila_palmeira","meia_praia","lagos_oldtown","lagos_marina","ponta_piedade","palmares"]},
+  "E": {"id":"E","title":"Golf Algarve Explorer","type":"theme",
+        "pins":["palmares","salgados","oconnor","vale_lobo"]},
+  "F": {"id":"F","title":"São Rafael Explorer","type":"region",
+        "pins":["nau_sao_rafael","praia_sao_rafael","sao_rafael_coast","sao_rafael_tennis","albufeira","faro_airport"]}
+}

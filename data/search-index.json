@@ -1,0 +1,748 @@
+[
+ {
+  "id": "lisbon",
+  "type": "location",
+  "title": "Lissabon",
+  "sub": "city",
+  "chapterId": "chapter_lisbon",
+  "terms": [
+   "stadt",
+   "alfama",
+   "fado",
+   "lissabon",
+   "belem"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "lisbon"
+  }
+ },
+ {
+  "id": "aljezur",
+  "type": "location",
+  "title": "Aljezur",
+  "sub": "city",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "atlantik",
+   "aljezur",
+   "costa vicentina"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "aljezur"
+  }
+ },
+ {
+  "id": "lagos",
+  "type": "location",
+  "title": "Lagos",
+  "sub": "city",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "altstadt",
+   "strand",
+   "lagos",
+   "klippen"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "lagos"
+  }
+ },
+ {
+  "id": "albufeira",
+  "type": "location",
+  "title": "Albufeira",
+  "sub": "city",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "strand",
+   "resort",
+   "albufeira"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "albufeira"
+  }
+ },
+ {
+  "id": "faro_airport",
+  "type": "location",
+  "title": "Faro Flughafen",
+  "sub": "airport",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "faro flughafen",
+   "rückreise",
+   "flug"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "faro_airport"
+  }
+ },
+ {
+  "id": "cabo_espichel",
+  "type": "location",
+  "title": "Cabo Espichel",
+  "sub": "viewpoint",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "cabo espichel",
+   "klippen",
+   "roadtrip",
+   "aussicht"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "cabo_espichel"
+  }
+ },
+ {
+  "id": "arrabida",
+  "type": "location",
+  "title": "Serra da Arrábida",
+  "sub": "region",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "panorama",
+   "küstenstraße",
+   "serra da arrábida",
+   "roadtrip"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "arrabida"
+  }
+ },
+ {
+  "id": "comporta",
+  "type": "location",
+  "title": "Comporta",
+  "sub": "village",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "dünen",
+   "lunch",
+   "roadtrip",
+   "comporta"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "comporta"
+  }
+ },
+ {
+  "id": "sines",
+  "type": "location",
+  "title": "Sines",
+  "sub": "city",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "sines",
+   "roadtrip",
+   "hafen"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "sines"
+  }
+ },
+ {
+  "id": "atlantic_basecamp",
+  "type": "location",
+  "title": "Atlantic Basecamp",
+  "sub": "stay",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "unterkunft",
+   "basecamp",
+   "pool",
+   "surf",
+   "atlantic basecamp"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "atlantic_basecamp"
+  }
+ },
+ {
+  "id": "praia_amoreira",
+  "type": "location",
+  "title": "Praia da Amoreira",
+  "sub": "beach",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "strand",
+   "dünen",
+   "praia da amoreira",
+   "natur"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "praia_amoreira"
+  }
+ },
+ {
+  "id": "monte_clerigo",
+  "type": "location",
+  "title": "Monte Clérigo",
+  "sub": "village",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "strand",
+   "sunset",
+   "monte clérigo",
+   "restaurant"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "monte_clerigo"
+  }
+ },
+ {
+  "id": "carrapateira",
+  "type": "location",
+  "title": "Pontal da Carrapateira",
+  "sub": "viewpoint",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "pontal da carrapateira",
+   "sunset",
+   "klippen",
+   "hochzeitstag"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "carrapateira"
+  }
+ },
+ {
+  "id": "arrifana",
+  "type": "location",
+  "title": "Praia da Arrifana",
+  "sub": "beach",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "westküste",
+   "praia da arrifana",
+   "aussicht",
+   "surf"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "arrifana"
+  }
+ },
+ {
+  "id": "vila_palmeira",
+  "type": "location",
+  "title": "Vila Palmeira Beach Resort",
+  "sub": "stay",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "pool",
+   "vila palmeira beach resort",
+   "meia praia",
+   "unterkunft"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "vila_palmeira"
+  }
+ },
+ {
+  "id": "meia_praia",
+  "type": "location",
+  "title": "Meia Praia",
+  "sub": "beach",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "strand",
+   "lagos",
+   "meia praia"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "meia_praia"
+  }
+ },
+ {
+  "id": "lagos_oldtown",
+  "type": "location",
+  "title": "Altstadt Lagos",
+  "sub": "district",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "altstadt",
+   "restaurants",
+   "altstadt lagos",
+   "gassen"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "lagos_oldtown"
+  }
+ },
+ {
+  "id": "lagos_marina",
+  "type": "location",
+  "title": "Marina de Lagos",
+  "sub": "marina",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "boot",
+   "marina de lagos",
+   "hafen"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "lagos_marina"
+  }
+ },
+ {
+  "id": "ponta_piedade",
+  "type": "location",
+  "title": "Ponta da Piedade",
+  "sub": "nature",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "bootstour",
+   "fotospot",
+   "klippen",
+   "ponta da piedade"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "ponta_piedade"
+  }
+ },
+ {
+  "id": "palmares",
+  "type": "location",
+  "title": "Palmares Golf",
+  "sub": "golf",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "links",
+   "golf",
+   "palmares golf",
+   "meia praia"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "palmares"
+  }
+ },
+ {
+  "id": "salgados",
+  "type": "location",
+  "title": "Salgados Golf",
+  "sub": "golf",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "wasser",
+   "salgados golf",
+   "golf",
+   "lagune"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "salgados"
+  }
+ },
+ {
+  "id": "oconnor",
+  "type": "location",
+  "title": "Amendoeira O'Connor Jnr.",
+  "sub": "golf",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "championship",
+   "golf",
+   "seen",
+   "amendoeira o'connor jnr."
+  ],
+  "target": {
+   "kind": "location",
+   "id": "oconnor"
+  }
+ },
+ {
+  "id": "vale_lobo",
+  "type": "location",
+  "title": "Vale do Lobo Ocean",
+  "sub": "golf",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "klippen",
+   "atlantik",
+   "golf",
+   "finale",
+   "vale do lobo ocean"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "vale_lobo"
+  }
+ },
+ {
+  "id": "nau_sao_rafael",
+  "type": "location",
+  "title": "NAU São Rafael Suites",
+  "sub": "stay",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "nau são rafael suites",
+   "tennis",
+   "resort",
+   "all inclusive"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "nau_sao_rafael"
+  }
+ },
+ {
+  "id": "praia_sao_rafael",
+  "type": "location",
+  "title": "Praia de São Rafael",
+  "sub": "beach",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "strand",
+   "praia de são rafael",
+   "felsen",
+   "buchten"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "praia_sao_rafael"
+  }
+ },
+ {
+  "id": "sao_rafael_coast",
+  "type": "location",
+  "title": "Küstenweg São Rafael",
+  "sub": "trail",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "wandern",
+   "küstenweg são rafael",
+   "küste"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "sao_rafael_coast"
+  }
+ },
+ {
+  "id": "sao_rafael_tennis",
+  "type": "location",
+  "title": "Tennis am Resort",
+  "sub": "activity",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "tennis am resort",
+   "tennis",
+   "aktivität"
+  ],
+  "target": {
+   "kind": "location",
+   "id": "sao_rafael_tennis"
+  }
+ },
+ {
+  "id": "day_20260828",
+  "type": "day",
+  "title": "Anreise & Auftakt",
+  "sub": "2026-08-28 · LIS",
+  "chapterId": "chapter_lisbon",
+  "terms": [
+   "2026-08-28",
+   "lis",
+   "anreise & auftakt",
+   "12:15 landung lissabon",
+   "transfer nach alfama",
+   "miradouro santa luzia",
+   "18:45 javá rooftop"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260828"
+  }
+ },
+ {
+  "id": "day_20260829",
+  "type": "day",
+  "title": "Stadt der Entdecker",
+  "sub": "2026-08-29 · LIS",
+  "chapterId": "chapter_lisbon",
+  "terms": [
+   "2026-08-29",
+   "lis",
+   "stadt der entdecker",
+   "09:30 private tuk-tuk-tour",
+   "time out market",
+   "pastéis de belém",
+   "15:30 jerónimos-kloster",
+   "20:00 doca de santo"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260829"
+  }
+ },
+ {
+  "id": "day_20260830",
+  "type": "day",
+  "title": "Architektur, Atlantik & Fado",
+  "sub": "2026-08-30 · LIS",
+  "chapterId": "chapter_lisbon",
+  "terms": [
+   "2026-08-30",
+   "lis",
+   "architektur, atlantik & fado",
+   "10:00 torre de belém",
+   "maat",
+   "lx factory",
+   "cascais",
+   "20:00 clube de fado"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260830"
+  }
+ },
+ {
+  "id": "day_20260831",
+  "type": "day",
+  "title": "Roadtrip Südwest",
+  "sub": "2026-08-31 · ATL",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "2026-08-31",
+   "atl",
+   "roadtrip südwest",
+   "10:00 mietwagen lissabon",
+   "11:00 abfahrt",
+   "cabo espichel",
+   "serra da arrábida",
+   "comporta / lunch",
+   "sines",
+   "ankunft atlantic basecamp"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260831"
+  }
+ },
+ {
+  "id": "day_20260901",
+  "type": "day",
+  "title": "Ankommen am Atlantik",
+  "sub": "2026-09-01 · ATL",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "2026-09-01",
+   "atl",
+   "ankommen am atlantik",
+   "spätes frühstück",
+   "praia da amoreira",
+   "lunch am strand",
+   "pool",
+   "monte clérigo"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260901"
+  }
+ },
+ {
+  "id": "day_20260902",
+  "type": "day",
+  "title": "Ein besonderer Tag",
+  "sub": "2026-09-02 · ATL",
+  "chapterId": "chapter_atlantic",
+  "terms": [
+   "2026-09-02",
+   "atl",
+   "ein besonderer tag",
+   "frühstück auf der terrasse",
+   "strand & pool",
+   "carrapateira zum sunset",
+   "besonderes gemeinsames essen"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260902"
+  }
+ },
+ {
+  "id": "day_20260903",
+  "type": "day",
+  "title": "Das Ende Europas",
+  "sub": "2026-09-03 · LAG",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "2026-09-03",
+   "lag",
+   "das ende europas",
+   "arrifana aussicht",
+   "sagres",
+   "fortaleza de sagres",
+   "cabo são vicente",
+   "weiterfahrt lagos",
+   "check-in vila palmeira"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260903"
+  }
+ },
+ {
+  "id": "day_20260904",
+  "type": "day",
+  "title": "Lagos & Ponta da Piedade",
+  "sub": "2026-09-04 · LAG",
+  "chapterId": "chapter_lagos",
+  "terms": [
+   "2026-09-04",
+   "lag",
+   "lagos & ponta da piedade",
+   "meia praia",
+   "altstadt & lunch",
+   "ponta da piedade (wetterabhängig)",
+   "18:00 schlägerübergabe",
+   "sunset"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260904"
+  }
+ },
+ {
+  "id": "day_20260905",
+  "type": "day",
+  "title": "Palmares Golf Day",
+  "sub": "2026-09-05 · GLF",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "2026-09-05",
+   "glf",
+   "palmares golf day",
+   "10:20 abfahrt",
+   "11:40 tee time palmares",
+   "rückkehr ca. 16:30",
+   "gemeinsamer abend in lagos"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260905"
+  }
+ },
+ {
+  "id": "day_20260906",
+  "type": "day",
+  "title": "Moving Day & Küstenhighlight",
+  "sub": "2026-09-06 · RES",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "2026-09-06",
+   "res",
+   "moving day & küstenhighlight",
+   "check-out bis 11:00",
+   "ponta da piedade als favorit / flex",
+   "lunch lagos",
+   "fahrt albufeira",
+   "check-in nau são rafael",
+   "erster ai-abend"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260906"
+  }
+ },
+ {
+  "id": "day_20260907",
+  "type": "day",
+  "title": "Salgados Golf",
+  "sub": "2026-09-07 · GLF",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "2026-09-07",
+   "glf",
+   "salgados golf",
+   "08:10 abfahrt",
+   "09:28 tee time salgados",
+   "pool & strand",
+   "ai-abend"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260907"
+  }
+ },
+ {
+  "id": "day_20260908",
+  "type": "day",
+  "title": "Amendoeira O'Connor Jnr.",
+  "sub": "2026-09-08 · GLF",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "2026-09-08",
+   "glf",
+   "amendoeira o'connor jnr.",
+   "08:20 abfahrt",
+   "09:50 tee time o'connor jnr.",
+   "pool & strand",
+   "ai-abend"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260908"
+  }
+ },
+ {
+  "id": "day_20260909",
+  "type": "day",
+  "title": "Vale do Lobo Finale",
+  "sub": "2026-09-09 · GLF",
+  "chapterId": "chapter_golf",
+  "terms": [
+   "2026-09-09",
+   "glf",
+   "vale do lobo finale",
+   "08:40 abfahrt",
+   "10:10 tee time vale do lobo ocean",
+   "18:00 schlägerrückgabe",
+   "abschiedsabend"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260909"
+  }
+ },
+ {
+  "id": "day_20260910",
+  "type": "day",
+  "title": "Rückreise",
+  "sub": "2026-09-10 · RES",
+  "chapterId": "chapter_resort",
+  "terms": [
+   "2026-09-10",
+   "res",
+   "rückreise",
+   "früher check-out",
+   "mietwagenabgabe faro",
+   "09:35 faro → barcelona",
+   "14:55 barcelona → stuttgart",
+   "17:00 stuttgart"
+  ],
+  "target": {
+   "kind": "day",
+   "id": "day_20260910"
+  }
+ }
+]
