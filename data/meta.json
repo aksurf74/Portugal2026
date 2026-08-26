@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.1.0",
+  "schemaVersion": "4.0.0",
   "trip": {
     "title": "Portugal 2026",
     "subtitle": "Alexander · Sabine · Aaron · Anna",
@@ -10,13 +10,13 @@
       { "value": "4", "label": "Unterkünfte" },
       { "value": "4", "label": "Golfplätze" },
       { "value": "1", "label": "Roadtrip" }
+    ],
+    "heroCollage": [
+      "images/lagos-hero-ponta.jpg",
+      "images/lisbon-torre.jpg",
+      "images/golf-valedolobo.jpg",
+      "images/atlantic-amoreira.jpg",
+      "images/resort-hero-pool-sunset.jpg"
     ]
-  },
-  "colors": {
-    "lisbon": "#2E6E8E",
-    "atlantic": "#3E6F6D",
-    "lagos": "#C99A52",
-    "golf": "#7A3B2E",
-    "resort": "#2B8A86"
   }
 }
