@@ -1,7 +1,6 @@
-/* Portugal 2026 — Map Engine V4.2
+/* Portugal 2026 — Map Engine (V4.2, unverändert)
    Interaktive SVG-Magazinkarten, offline, mit map.view-Zoom,
    routePath-Fahrstrecken und Label-Entzerrung. */
-
 const DEFAULT_BOUNDS = { minLat: 36.90, maxLat: 38.85, minLon: -9.55, maxLon: -7.80 };
 const MAP_W = 800, MAP_H = 900, PAD = 70;
 const COAST = [
@@ -10,7 +9,6 @@ const COAST = [
   [-8.86,37.44],[-8.90,37.25],[-8.99,37.02],[-8.80,36.99],[-8.60,37.09],
   [-8.40,37.08],[-8.20,37.07],[-8.05,37.05],[-7.92,37.01]
 ];
-
 function makeProjector(bounds) {
   return (lat, lon) => [
     PAD + (lon - bounds.minLon) / (bounds.maxLon - bounds.minLon) * (MAP_W - 2 * PAD),
@@ -43,27 +41,18 @@ function smoothPath(points) {
   const last = points[points.length - 1];
   return `${d} L ${last[0].toFixed(1)} ${last[1].toFixed(1)}`;
 }
-
 function renderMap(container, mapDef, locById, onPinClick) {
   const bounds = mapDef.view || DEFAULT_BOUNDS;
   const project = makeProjector(bounds);
   container.innerHTML = '';
-
-  const svg = svgEl('svg', {
-    viewBox: `0 0 ${MAP_W} ${MAP_H}`,
-    id: 'mapSVG',
-    role: 'img',
-    'aria-label': `Karte ${mapDef.title || ''}`
-  });
+  const svg = svgEl('svg', { viewBox: `0 0 ${MAP_W} ${MAP_H}`, id: 'mapSVG', role: 'img', 'aria-label': `Karte ${mapDef.title || ''}` });
   const defs = svgEl('defs');
   defs.innerHTML = '<linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123849"/><stop offset="1" stop-color="#0C2028"/></linearGradient>';
   svg.appendChild(defs);
   svg.appendChild(svgEl('rect', { x: 0, y: 0, width: MAP_W, height: MAP_H, fill: 'url(#sea)' }));
-
   const coast = coastPath(project);
   svg.appendChild(svgEl('path', { d: `${coast} L ${MAP_W} ${MAP_H} L ${MAP_W} 0 Z`, fill: '#EAE0CB', opacity: '0.96' }));
   svg.appendChild(svgEl('path', { d: coast, fill: 'none', stroke: '#5A6E62', 'stroke-width': '2.4', 'stroke-linecap': 'round' }));
-
   if (Array.isArray(mapDef.routePath) && mapDef.routePath.length > 1) {
     const routePoints = mapDef.routePath.map(([lat, lon]) => project(lat, lon));
     svg.appendChild(svgEl('path', {
@@ -71,14 +60,12 @@ function renderMap(container, mapDef, locById, onPinClick) {
       'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-dasharray': '2 12', opacity: '0.95'
     }));
   }
-
   const points = (mapDef.pins || []).map((id, index) => {
     const location = locById[id];
     if (!location) return null;
     const [x, y] = project(location.lat, location.lon);
     return { location, index, x, y, labelY: y };
   }).filter(Boolean);
-
   const sorted = [...points].sort((a, b) => a.y - b.y);
   const minLabelGap = 30;
   for (let i = 1; i < sorted.length; i += 1) {
@@ -86,7 +73,6 @@ function renderMap(container, mapDef, locById, onPinClick) {
       sorted[i].labelY = sorted[i - 1].labelY + minLabelGap;
     }
   }
-
   points.forEach(({ location, index, x, y, labelY }) => {
     const group = svgEl('g', { class: 'pin', style: 'cursor:pointer', tabindex: '0', role: 'button', 'aria-label': location.name });
     group.appendChild(svgEl('circle', { cx: x, cy: y, r: 23, fill: '#C99A52', 'fill-opacity': '0.16' }));
@@ -94,7 +80,6 @@ function renderMap(container, mapDef, locById, onPinClick) {
     const number = svgEl('text', { x, y: y + 4, 'text-anchor': 'middle', 'font-size': '13', 'font-weight': '800', fill: '#0E2A33', 'font-family': '-apple-system,Arial' });
     number.textContent = String(index + 1);
     group.appendChild(number);
-
     const right = x < MAP_W - 240;
     const labelX = x + (right ? 21 : -21);
     if (Math.abs(labelY - y) > 2) {
@@ -110,17 +95,12 @@ function renderMap(container, mapDef, locById, onPinClick) {
     });
     label.textContent = location.name;
     group.appendChild(label);
-
     const open = () => onPinClick(location);
     group.addEventListener('click', open);
-    group.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') open();
-    });
+    group.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') open(); });
     svg.appendChild(group);
   });
-
   container.appendChild(svg);
   return svg;
 }
-
 window.PortugalMap = { renderMap };
