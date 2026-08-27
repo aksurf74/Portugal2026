@@ -136,6 +136,7 @@ function diningBlockForDay(d){
   // Regionale Empfehlungen (gesteuert über d.diningRegion; resort/reserved/special = keine Liste)
   if(!res && !(R.specialEvening && R.specialEvening.date===d.date)){
     const region = d.diningRegion; // atlantic | lagos | resort | reserved | special
+   if(region==='none') return html;
     let recs = [];
     if(region==='atlantic') recs = (R.recommendations||[]).filter(x=>x.region==='atlantic');
     else if(region==='lagos') recs = (R.recommendations||[]).filter(x=>x.region==='lagos');
