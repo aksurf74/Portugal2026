@@ -1,6 +1,6 @@
-/* Portugal 2026 — App V5 RC3.1
-   RC3 + Karte C (Basecamp→Faro) mit Golf-Hub-Pin, diningRegion:"none",
-   per-Tag-Hero (Lissabon-Bilder differenziert), Ortstexte, Frag Copilot. */
+/* Portugal 2026 — App V5 RC4
+   RC3.1 + Kachel 4 "🎧 Hier & Jetzt": GPS → nächster Ort → Copilot (Variante B, Reiseführer-Ton).
+   Isolierte Ergänzung. Alle übrigen Funktionen unverändert. */
 const DB = { meta:null, home:null, chapters:[], days:[], locations:[], maps:null, search:[], accommodations:[], restaurants:null };
 const byId = {};
 let currentMap = 'A';
@@ -54,12 +54,13 @@ function renderActionCards(){
     `<button class="kpi action-card" data-action="tripday"><b>${s.value}</b><span>${s.label}</span></button>`+
     `<button class="kpi action-card" data-action="accommodations"><b>4</b><span>Unterkünfte</span></button>`+
     `<button class="kpi action-card" data-action="weather"><b>☀</b><span>Wetter</span></button>`+
-    `<button class="kpi action-card" data-action="today"><b>●</b><span>Heute</span></button>`;
+    `<button class="kpi action-card" data-action="hereandnow"><b>🎧</b><span>Hier &amp; Jetzt</span></button>`;
   document.querySelectorAll('.action-card').forEach(card => card.addEventListener('click',()=>{
     const a = card.dataset.action;
-    if(a==='tripday'||a==='today') openToday();
+    if(a==='tripday') openToday();
     else if(a==='accommodations') openAccommodations();
     else if(a==='weather') openWeather();
+    else if(a==='hereandnow') openHereAndNow();
   }));
 }
 function renderDaybar(){
@@ -111,6 +112,89 @@ const sheet = ()=>document.getElementById('sheet');
 const backdrop = ()=>document.getElementById('sheet-backdrop');
 function showSheet(html){ sheet().innerHTML = '<div class="grip"></div>'+html; sheet().classList.add('open'); backdrop().classList.add('open'); sheet().scrollTop=0; }
 function closeSheet(){ sheet().classList.remove('open'); backdrop().classList.remove('open'); }
+
+/* ---------- 🎧 Hier & Jetzt (Stufe 2: GPS → nächster Ort → Copilot, Variante B) ---------- */
+function haversineKm(aLat,aLon,bLat,bLon){
+  const R=6371, toR=x=>x*Math.PI/180;
+  const dLat=toR(bLat-aLat), dLon=toR(bLon-aLon);
+  const s=Math.sin(dLat/2)**2 + Math.cos(toR(aLat))*Math.cos(toR(bLat))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+function nearestLocation(lat,lon){
+  let best=null, bestKm=Infinity;
+  DB.locations.forEach(l=>{
+    if(l.isHub || typeof l.lat!=='number') return;
+    const km=haversineKm(lat,lon,l.lat,l.lon);
+    if(km<bestKm){ bestKm=km; best=l; }
+  });
+  return { loc:best, km:bestKm };
+}
+function copilotGuideHref({name, lat, lon, km}){
+  // Variante B — charmanter Reiseführer-Ton, ~30 Sekunden
+  let prompt;
+  if(name && km<=50){
+    const dist = km<0.8 ? 'direkt hier' : `etwa ${km.toFixed(1)} km entfernt`;
+    prompt = `Sei mein charmanter Reiseführer. Ich stehe gerade an der Algarve/Costa Vicentina, ${dist} bei „${name}". `+
+             `Erzähl mir in rund 30 Sekunden lebendig und wertig das Spannendste über diesen Ort – Geschichte, Atmosphäre, `+
+             `ein besonderer Blickwinkel – und schließe mit einem echten Geheimtipp. Locker, aber niveauvoll, auf Deutsch.`;
+  } else {
+    prompt = `Sei mein charmanter Reiseführer. Ich stehe gerade an diesen Koordinaten in Portugal: ${lat.toFixed(4)}, ${lon.toFixed(4)}. `+
+             `Erzähl mir in rund 30 Sekunden lebendig, was hier oder in unmittelbarer Nähe interessant ist, und gib mir einen Geheimtipp. Auf Deutsch.`;
+  }
+  return `https://copilot.microsoft.com/?q=${encodeURIComponent(prompt)}`;
+}
+function hereAndNowSheet(inner){
+  showSheet(`<div class="sheet-kicker">Audioguide · online</div><h3>🎧 Hier &amp; Jetzt</h3>${inner}`);
+}
+function openHereAndNow(){
+  // Sofort ein Sheet öffnen, damit der Nutzer Feedback sieht
+  hereAndNowSheet(`<p class="sheet-intro">Ich hole kurz Deinen Standort …</p><div class="han-status">📍 Standort wird ermittelt</div>`);
+
+  const finishWithCoords=(lat,lon,accuracyNote='')=>{
+    const {loc,km}=nearestLocation(lat,lon);
+    const href=copilotGuideHref({name:loc?loc.name:null, lat, lon, km});
+    const near = loc && km<=50
+      ? `<div class="han-place">In Deiner Nähe: <b>${loc.name}</b>${km<0.8?' (direkt hier)':` · ${km.toFixed(1)} km`}</div>${loc.image?`<div class="sheet-hero" style="background-image:url('${loc.image}')"></div>`:''}${loc.summary?`<p class="loc-summary">${loc.summary}</p>`:''}`
+      : `<div class="han-place">Kein bekannter Ort in der Nähe – Copilot erzählt Dir trotzdem, was hier interessant ist.</div>`;
+    hereAndNowSheet(
+      near+
+      `<p class="sheet-intro">Copilot schreibt Dir einen ~30-Sekunden-Reiseführer-Text. Tippe dort auf <b>🔊 Vorlesen</b>, um ihn als Audio zu hören.</p>`+
+      `<div class="button-row"><a class="cta copilot" target="_blank" rel="noopener" href="${href}">🎧 Reiseführer öffnen ↗</a>`+
+      (loc?`<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${lat},${lon}">📍 Auf Karte ↗</a>`:'')+
+      `</div>${accuracyNote?`<div class="meta" style="margin-top:10px">${accuracyNote}</div>`:''}`
+    );
+  };
+
+  const fallbackToday=(reason)=>{
+    const s=tripState();
+    const loc=(s.day.locationIds||[]).map(id=>byId[id]).find(Boolean);
+    if(loc){
+      const href=copilotGuideHref({name:loc.name, lat:loc.lat, lon:loc.lon, km:0});
+      hereAndNowSheet(
+        `<div class="han-place">${reason} Ich nehme den heutigen Ort: <b>${loc.name}</b></div>`+
+        (loc.image?`<div class="sheet-hero" style="background-image:url('${loc.image}')"></div>`:'')+
+        (loc.summary?`<p class="loc-summary">${loc.summary}</p>`:'')+
+        `<p class="sheet-intro">Copilot schreibt Dir einen ~30-Sekunden-Text. Tippe dort auf <b>🔊 Vorlesen</b>.</p>`+
+        `<div class="button-row"><a class="cta copilot" target="_blank" rel="noopener" href="${href}">🎧 Reiseführer öffnen ↗</a></div>`
+      );
+    } else {
+      hereAndNowSheet(`<p class="sheet-intro">${reason} Und ich konnte auch keinen Tagesort finden. Versuch es später noch einmal.</p>`);
+    }
+  };
+
+  if(!('geolocation' in navigator)){
+    fallbackToday('Standort ist auf diesem Gerät nicht verfügbar.');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos => finishWithCoords(pos.coords.latitude, pos.coords.longitude),
+    err => {
+      const msg = err.code===1 ? 'Standortfreigabe wurde abgelehnt.' : 'Standort konnte nicht ermittelt werden.';
+      fallbackToday(msg);
+    },
+    { enableHighAccuracy:true, timeout:8000, maximumAge:60000 }
+  );
+}
 
 function diningBlockForDay(d){
   const R = DB.restaurants; if(!R) return '';
