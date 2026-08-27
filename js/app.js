@@ -1,19 +1,19 @@
-/* Portugal 2026 — App V5 RC1
-   Stabiler Umbau aus V4.2. Erhalten: Hero, Datumsleiste, Suche, Timeline, Karten.
-   Neu: Aktionskacheln (Reisetag, Unterkünfte, Wetter, Heute); Karten nur A/B. */
-const DB = { meta:null, home:null, chapters:[], days:[], locations:[], maps:null, search:[], accommodations:[] };
+/* Portugal 2026 — App V5 RC2
+   RC1-Basis + Restaurants: Reservierungen, Besonderer Abend (2.9., 3 Optionen)
+   und regionale Empfehlungen erscheinen kontextbezogen im Tagesfenster. */
+const DB = { meta:null, home:null, chapters:[], days:[], locations:[], maps:null, search:[], accommodations:[], restaurants:null };
 const byId = {};
 let currentMap = 'A';
 
 async function loadJSON(path){ const r = await fetch(path,{cache:'no-cache'}); if(!r.ok) throw new Error(path); return r.json(); }
 async function boot(){
   try{
-    const [meta,home,chapters,days,locations,maps,search,accommodations] = await Promise.all([
+    const [meta,home,chapters,days,locations,maps,search,accommodations,restaurants] = await Promise.all([
       loadJSON('data/meta.json'), loadJSON('data/home.json'), loadJSON('data/chapters.json'),
       loadJSON('data/days.json'), loadJSON('data/locations.json'), loadJSON('data/maps.json'),
-      loadJSON('data/search-index.json'), loadJSON('data/accommodations.json')
+      loadJSON('data/search-index.json'), loadJSON('data/accommodations.json'), loadJSON('data/restaurants.json')
     ]);
-    Object.assign(DB,{meta,home,chapters,days,locations,maps,search,accommodations});
+    Object.assign(DB,{meta,home,chapters,days,locations,maps,search,accommodations,restaurants});
     locations.forEach(l => { byId[l.id] = l; });
     render();
   }catch(e){
@@ -29,6 +29,7 @@ function fmtDate(iso){ const [,m,d] = iso.split('-'); return `${d}.${m}.`; }
 function noon(iso){ return new Date(`${iso}T12:00:00`); }
 function today12(){ const n = new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate(),12); }
 function diffDays(a,b){ return Math.round((a-b)/86400000); }
+function mapsHref(query){ return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`; }
 function tripState(){
   const start=noon(DB.meta.trip.startDate), end=noon(DB.meta.trip.endDate), t=today12();
   if(t<start){ const d=diffDays(start,t); return {phase:'before', value:'0 / 14', label:d===1?'Start morgen':`Start in ${d} Tagen`, day:DB.days[0]}; }
@@ -111,6 +112,44 @@ const backdrop = ()=>document.getElementById('sheet-backdrop');
 function showSheet(html){ sheet().innerHTML = '<div class="grip"></div>'+html; sheet().classList.add('open'); backdrop().classList.add('open'); sheet().scrollTop=0; }
 function closeSheet(){ sheet().classList.remove('open'); backdrop().classList.remove('open'); }
 
+/* ----- Restaurants: HTML-Bausteine für das Tagesfenster ----- */
+function diningBlockForDay(d){
+  const R = DB.restaurants; if(!R) return '';
+  let html = '';
+  // Reservierung an diesem Tag?
+  const res = (R.reserved||[]).find(r=>r.date===d.date);
+  if(res){
+    html += `<div class="dining-box reserved"><div class="dining-h">🍽️ Reserviert · ${res.time}</div>`+
+            `<div class="dining-name">${res.name}</div><div class="dining-note">${res.note}</div>`+
+            `<a class="cta small" target="_blank" rel="noopener" href="${mapsHref(res.mapsQuery)}">Navigation ↗</a></div>`;
+  }
+  // Besonderer Abend?
+  if(R.specialEvening && R.specialEvening.date===d.date){
+    const se=R.specialEvening;
+    html += `<div class="dining-box special"><div class="dining-h">★ ${se.title}</div>`+
+      `<div class="dining-note">${se.intro}</div>`+
+      se.options.map(o=>`<div class="dining-option"><div class="dining-name">${o.name} <small>· ${o.area}</small></div>`+
+        `<div class="dining-hl">${o.highlight}</div>`+
+        `<a class="cta small" target="_blank" rel="noopener" href="${mapsHref(o.mapsQuery)}">Navigation ↗</a></div>`).join('')+
+      `</div>`;
+  }
+  // Regionale Empfehlungen (gesteuert über d.diningRegion; resort/reserved/special = keine Liste)
+  if(!res && !(R.specialEvening && R.specialEvening.date===d.date)){
+    const region = d.diningRegion; // atlantic | lagos | resort | reserved | special
+    let recs = [];
+    if(region==='atlantic') recs = (R.recommendations||[]).filter(x=>x.region==='atlantic');
+    else if(region==='lagos') recs = (R.recommendations||[]).filter(x=>x.region==='lagos');
+    if(recs.length){
+      html += `<div class="dining-box"><div class="dining-h">Restaurant-Empfehlungen</div>`+
+        recs.slice(0,4).map(x=>`<div class="dining-option"><div class="dining-name">${x.name} <small>· ${x.cuisine}</small></div>`+
+          `<div class="dining-hl">${x.note}</div>`+
+          `<a class="cta small" target="_blank" rel="noopener" href="${mapsHref(x.mapsQuery)}">Navigation ↗</a></div>`).join('')+
+        `</div>`;
+    }
+  }
+  return html;
+}
+
 function openToday(){ const s = tripState(); openDay(s.day.id, s.phase==='before'?`Vorschau · ${s.label}`:s.label); }
 function openDay(id, kicker='Tagesprogramm'){
   const d = DB.days.find(x=>x.id===id); if(!d) return;
@@ -123,9 +162,9 @@ function openDay(id, kicker='Tagesprogramm'){
     (hero?`<div class="sheet-hero" style="background-image:url('${hero.image}')"></div>`:'')+
     `<div class="sheet-kicker">${kicker}</div><h3>${d.title}</h3>`+
     `<div class="meta">${d.weekday}, ${fmtDate(d.date)}2026 · ${ch?ch.title:''}</div>`+
-    (d.date==='2026-09-02'?'<div class="special-note">★ Besonderer Abend · Restaurantauswahl noch offen</div>':'')+
     (fixed.length?`<h4>Fixe Zeiten</h4><ul class="agenda fixed">${fixed.map(x=>`<li>${x}</li>`).join('')}</ul>`:'')+
     `<h4>Programm</h4><ul class="agenda">${flex.map(x=>`<li>${x}</li>`).join('')}</ul>`+
+    diningBlockForDay(d)+
     `<div class="tagrow">${stops.map(x=>`<button class="tag" data-loc="${x.id}">📍 ${x.name}</button>`).join('')}</div>`
   );
   sheet().querySelectorAll('.tag[data-loc]').forEach(x=>x.addEventListener('click',()=>openLocation(x.dataset.loc)));
