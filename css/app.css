@@ -88,7 +88,11 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;line-height
 .sr-item .badge.img{background-size:cover;background-position:center}.sr-item .tt{font-weight:600}.sr-item .ss{font-size:.76rem;color:#6b7671}.sr-empty{color:#6b7671;text-align:center;padding:30px}
 .foot{padding:18px 18px 40px;color:#8a938e;font-size:.72rem;text-align:center;line-height:1.5}
 @media(max-width:390px){.kpis{gap:6px;padding-left:10px;padding-right:10px}.kpi{padding:12px 3px}.kpi span{font-size:.56rem}.weather-list{grid-template-columns:1fr}}
-/* ---------- RC4: 🎧 Hier & Jetzt ---------- */
+//* ---------- RC4/4.1: Hier & Jetzt + kopiersichere Copilot-Blöcke ---------- */
 .han-status{background:#eef3ef;border-radius:12px;padding:12px 14px;color:#4a5a52;font-weight:600;margin-top:6px}
 .han-place{font-size:.95rem;color:#33413b;margin:10px 0;line-height:1.5}
 .han-place b{color:var(--deep)}
+.copilot-block{margin-top:14px}
+.cp-prompt{background:#f2f6f3;border:1px solid #dfe8e2;border-radius:12px;padding:11px 13px;font-size:.86rem;line-height:1.5;color:#37453f;-webkit-user-select:text;user-select:text;white-space:pre-wrap}
+.cp-copy{cursor:pointer}
+.cp-hint{margin-top:8px;font-size:.75rem;color:#7c867f;line-height:1.45}
