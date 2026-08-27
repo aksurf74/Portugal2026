@@ -1,6 +1,6 @@
-/* Portugal 2026 — App V5 RC2
-   RC1-Basis + Restaurants: Reservierungen, Besonderer Abend (2.9., 3 Optionen)
-   und regionale Empfehlungen erscheinen kontextbezogen im Tagesfenster. */
+/* Portugal 2026 — App V5 RC3.1
+   RC3 + Karte C (Basecamp→Faro) mit Golf-Hub-Pin, diningRegion:"none",
+   per-Tag-Hero (Lissabon-Bilder differenziert), Ortstexte, Frag Copilot. */
 const DB = { meta:null, home:null, chapters:[], days:[], locations:[], maps:null, search:[], accommodations:[], restaurants:null };
 const byId = {};
 let currentMap = 'A';
@@ -96,14 +96,14 @@ function renderTimeline(){
 }
 function renderMapTabs(){
   const tabs = document.getElementById('mapTabs');
-  tabs.innerHTML = ['A','B'].map(k=>`<button class="maptab ${k===currentMap?'active':''}" data-map="${k}">${k} · ${DB.maps[k].short||DB.maps[k].title}</button>`).join('');
+  tabs.innerHTML = ['A','B','C'].map(k=>`<button class="maptab ${k===currentMap?'active':''}" data-map="${k}">${k} · ${DB.maps[k].short||DB.maps[k].title}</button>`).join('');
   tabs.querySelectorAll('.maptab').forEach(b=>b.addEventListener('click',()=>switchMap(b.dataset.map)));
 }
 function switchMap(k){ if(!DB.maps[k])return; currentMap=k; document.querySelectorAll('.maptab').forEach(b=>b.classList.toggle('active',b.dataset.map===k)); renderCurrentMap(); }
 function renderCurrentMap(){
   const m = DB.maps[currentMap];
   document.getElementById('mapTitle').textContent = m.title;
-  window.PortugalMap.renderMap(document.getElementById('map-container'), m, byId, l=>openLocation(l.id));
+  window.PortugalMap.renderMap(document.getElementById('map-container'), m, byId, l=> l.isHub ? openChapter('chapter_golf') : openLocation(l.id));
   document.getElementById('mapLegend').innerHTML = '<span><i class="dotg"></i> Stationen</span><span>— — Fahrstrecke (stilisiert)</span>';
 }
 
@@ -112,18 +112,15 @@ const backdrop = ()=>document.getElementById('sheet-backdrop');
 function showSheet(html){ sheet().innerHTML = '<div class="grip"></div>'+html; sheet().classList.add('open'); backdrop().classList.add('open'); sheet().scrollTop=0; }
 function closeSheet(){ sheet().classList.remove('open'); backdrop().classList.remove('open'); }
 
-/* ----- Restaurants: HTML-Bausteine für das Tagesfenster ----- */
 function diningBlockForDay(d){
   const R = DB.restaurants; if(!R) return '';
   let html = '';
-  // Reservierung an diesem Tag?
   const res = (R.reserved||[]).find(r=>r.date===d.date);
   if(res){
     html += `<div class="dining-box reserved"><div class="dining-h">🍽️ Reserviert · ${res.time}</div>`+
             `<div class="dining-name">${res.name}</div><div class="dining-note">${res.note}</div>`+
             `<a class="cta small" target="_blank" rel="noopener" href="${mapsHref(res.mapsQuery)}">Navigation ↗</a></div>`;
   }
-  // Besonderer Abend?
   if(R.specialEvening && R.specialEvening.date===d.date){
     const se=R.specialEvening;
     html += `<div class="dining-box special"><div class="dining-h">★ ${se.title}</div>`+
@@ -133,10 +130,9 @@ function diningBlockForDay(d){
         `<a class="cta small" target="_blank" rel="noopener" href="${mapsHref(o.mapsQuery)}">Navigation ↗</a></div>`).join('')+
       `</div>`;
   }
-  // Regionale Empfehlungen (gesteuert über d.diningRegion; resort/reserved/special = keine Liste)
   if(!res && !(R.specialEvening && R.specialEvening.date===d.date)){
-    const region = d.diningRegion; // atlantic | lagos | resort | reserved | special
-   if(region==='none') return html;
+    const region = d.diningRegion;
+    if(region==='none') return html;
     let recs = [];
     if(region==='atlantic') recs = (R.recommendations||[]).filter(x=>x.region==='atlantic');
     else if(region==='lagos') recs = (R.recommendations||[]).filter(x=>x.region==='lagos');
@@ -198,7 +194,7 @@ function openWeather(){
 function openChapter(id){
   const c = DB.chapters.find(x=>x.id===id); if(!c) return;
   const days = DB.days.filter(d=>d.chapterId===id);
-  if(c.maps && c.maps[0] && ['A','B'].includes(c.maps[0])) switchMap(c.maps[0]);
+  if(c.maps && c.maps[0] && ['A','B','C'].includes(c.maps[0])) switchMap(c.maps[0]);
   showSheet(
     (c.hero?`<div class="sheet-hero" style="background-image:url('${c.hero}')"></div>`:'')+
     `<div class="sheet-kicker">Kapitel ${c.roman}</div><h3>${c.title}</h3>`+
