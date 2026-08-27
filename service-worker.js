@@ -1,4 +1,4 @@
-const CACHE='portugal2026-v5-rc3-1';
+const CACHE='portugal2026-v5-rc4';
 const CORE=['./','./index.html','./css/app.css','./js/app.js','./js/map.js','./manifest.json',
 './icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png','./icons/favicon.png',
 './data/meta.json','./data/home.json','./data/accommodations.json','./data/restaurants.json','./data/chapters.json','./data/days.json',
