@@ -155,11 +155,11 @@ function openDay(id, kicker='Tagesprogramm'){
   const d = DB.days.find(x=>x.id===id); if(!d) return;
   const ch = DB.chapters.find(c=>c.id===d.chapterId);
   const stops = (d.locationIds||[]).map(x=>byId[x]).filter(Boolean);
-  const hero = stops.find(x=>x.image);
+  const heroImg = d.heroImage || (stops.find(x=>x.image)||{}).image;
   const fixed = d.agenda.filter(x=>/^\d{2}:\d{2}/.test(x));
   const flex  = d.agenda.filter(x=>!/^\d{2}:\d{2}/.test(x));
   showSheet(
-    (hero?`<div class="sheet-hero" style="background-image:url('${hero.image}')"></div>`:'')+
+    (heroImg?`<div class="sheet-hero" style="background-image:url('${heroImg}')"></div>`:'')+
     `<div class="sheet-kicker">${kicker}</div><h3>${d.title}</h3>`+
     `<div class="meta">${d.weekday}, ${fmtDate(d.date)}2026 · ${ch?ch.title:''}</div>`+
     (fixed.length?`<h4>Fixe Zeiten</h4><ul class="agenda fixed">${fixed.map(x=>`<li>${x}</li>`).join('')}</ul>`:'')+
@@ -210,14 +210,22 @@ function openLocation(id){
   const l = byId[id]; if(!l) return;
   const ch = DB.chapters.find(c=>c.id===l.chapterId);
   const days = DB.days.filter(d=>(d.locationIds||[]).includes(id));
+  const copilotPrompt = `Wir sind mit unserer Familie (zwei Teenager) in Portugal bei ${l.name}. Was können wir heute hier oder in der Nähe unternehmen? Gib 5 konkrete Tipps inkl. Essen und Schlechtwetter-Alternative.`;
+  const copilotHref = `https://copilot.microsoft.com/?q=${encodeURIComponent(copilotPrompt)}`;
   showSheet(
     (l.image?`<div class="sheet-hero" style="background-image:url('${l.image}')"></div>`:'')+
     `<div class="sheet-kicker">${l.type}</div><h3>${l.name}</h3>`+
     `<div class="meta">${ch?ch.title:''}</div>`+
+    (l.summary?`<p class="loc-summary">${l.summary}</p>`:'')+
+    (l.bestTime||l.tip?`<div class="loc-facts">`+
+      (l.bestTime?`<div><b>Beste Zeit</b><span>${l.bestTime}</span></div>`:'')+
+      (l.tip?`<div><b>Tipp</b><span>${l.tip}</span></div>`:'')+`</div>`:'')+
     `<div class="feature-row">${(l.tags||[]).map(t=>`<span>${t}</span>`).join('')}</div>`+
     (days.length?`<ul class="agenda">${days.map(d=>`<li data-day="${d.id}"><b>${fmtDate(d.date)}</b> ${d.title}</li>`).join('')}</ul>`:'')+
-    `<div class="button-row"><a class="cta" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lon}">Navigation ↗</a>`+
-    `<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('Aktivitäten in der Nähe '+l.name)}">Ideen in der Nähe ↗</a></div>`
+    `<div class="button-row"><a class="cta" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lon}">📍 Navigation ↗</a>`+
+    (l.website?`<a class="cta secondary" target="_blank" rel="noopener" href="${l.website}">🌐 Weitere Infos ↗</a>`:'')+
+    `<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('Aktivitäten in der Nähe '+l.name)}">✨ Ideen in der Nähe ↗</a>`+
+    `<a class="cta copilot" target="_blank" rel="noopener" href="${copilotHref}">🤖 Frag Copilot ↗</a></div>`
   );
   sheet().querySelectorAll('.agenda li[data-day]').forEach(x=>x.addEventListener('click',()=>openDay(x.dataset.day)));
 }
