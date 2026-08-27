@@ -1,6 +1,6 @@
-/* Portugal 2026 — App V5 RC4
-   RC3.1 + Kachel 4 "🎧 Hier & Jetzt": GPS → nächster Ort → Copilot (Variante B, Reiseführer-Ton).
-   Isolierte Ergänzung. Alle übrigen Funktionen unverändert. */
+/* Portugal 2026 — App V5 RC4.1
+   RC4 + kopiersichere Copilot-Prompts: Prompt sichtbar + "Kopieren"-Button
+   (bei "🎧 Hier & Jetzt" und "🤖 Frag Copilot"), da Copilot ?q= nicht immer übernimmt. */
 const DB = { meta:null, home:null, chapters:[], days:[], locations:[], maps:null, search:[], accommodations:[], restaurants:null };
 const byId = {};
 let currentMap = 'A';
@@ -30,6 +30,7 @@ function noon(iso){ return new Date(`${iso}T12:00:00`); }
 function today12(){ const n = new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate(),12); }
 function diffDays(a,b){ return Math.round((a-b)/86400000); }
 function mapsHref(query){ return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`; }
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function tripState(){
   const start=noon(DB.meta.trip.startDate), end=noon(DB.meta.trip.endDate), t=today12();
   if(t<start){ const d=diffDays(start,t); return {phase:'before', value:'0 / 14', label:d===1?'Start morgen':`Start in ${d} Tagen`, day:DB.days[0]}; }
@@ -110,10 +111,49 @@ function renderCurrentMap(){
 
 const sheet = ()=>document.getElementById('sheet');
 const backdrop = ()=>document.getElementById('sheet-backdrop');
-function showSheet(html){ sheet().innerHTML = '<div class="grip"></div>'+html; sheet().classList.add('open'); backdrop().classList.add('open'); sheet().scrollTop=0; }
+function showSheet(html){ sheet().innerHTML = '<div class="grip"></div>'+html; sheet().classList.add('open'); backdrop().classList.add('open'); sheet().scrollTop=0; wireCopilotBlocks(); }
 function closeSheet(){ sheet().classList.remove('open'); backdrop().classList.remove('open'); }
 
-/* ---------- 🎧 Hier & Jetzt (Stufe 2: GPS → nächster Ort → Copilot, Variante B) ---------- */
+/* ---------- Kopiersicherer Copilot-Block ----------
+   Zeigt den Prompt sichtbar an + Buttons "Copilot öffnen" und "Prompt kopieren".
+   Wird über data-Attribute verdrahtet, nachdem das Sheet gerendert wurde. */
+function copilotBlock(prompt, openLabel){
+  const href = `https://copilot.microsoft.com/?q=${encodeURIComponent(prompt)}`;
+  return `<div class="copilot-block">`+
+    `<div class="cp-prompt" data-prompt="${esc(prompt)}">${esc(prompt)}</div>`+
+    `<div class="button-row">`+
+      `<a class="cta copilot" target="_blank" rel="noopener" href="${href}">${openLabel} ↗</a>`+
+      `<button class="cta secondary cp-copy" type="button">📋 Prompt kopieren</button>`+
+    `</div>`+
+    `<div class="cp-hint">Falls das Textfeld in Copilot leer ist: „Prompt kopieren“ tippen, in Copilot einfügen und senden. Danach dort auf 🔊 Vorlesen.</div>`+
+  `</div>`;
+}
+function wireCopilotBlocks(){
+  sheet().querySelectorAll('.copilot-block').forEach(block=>{
+    const btn = block.querySelector('.cp-copy');
+    const text = block.querySelector('.cp-prompt')?.dataset.prompt || '';
+    if(!btn) return;
+    btn.addEventListener('click', async ()=>{
+      let ok=false;
+      try{ await navigator.clipboard.writeText(text); ok=true; }
+      catch(_){
+        try{ // Fallback für ältere/strikte Browser
+          const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          ok=document.execCommand('copy'); document.body.removeChild(ta);
+        }catch(__){ ok=false; }
+      }
+      btn.textContent = ok ? '✓ Kopiert' : '📋 Markieren & kopieren';
+      if(!ok){ // Text markierbar machen
+        const range=document.createRange(); range.selectNodeContents(block.querySelector('.cp-prompt'));
+        const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      }
+      setTimeout(()=>{ btn.textContent='📋 Prompt kopieren'; }, 2200);
+    });
+  });
+}
+
+/* ---------- 🎧 Hier & Jetzt (GPS → nächster Ort → Copilot, Variante B) ---------- */
 function haversineKm(aLat,aLon,bLat,bLon){
   const R=6371, toR=x=>x*Math.PI/180;
   const dLat=toR(bLat-aLat), dLon=toR(bLon-aLon);
@@ -129,69 +169,55 @@ function nearestLocation(lat,lon){
   });
   return { loc:best, km:bestKm };
 }
-function copilotGuideHref({name, lat, lon, km}){
-  // Variante B — charmanter Reiseführer-Ton, ~30 Sekunden
-  let prompt;
+function guidePrompt({name, lat, lon, km}){
   if(name && km<=50){
     const dist = km<0.8 ? 'direkt hier' : `etwa ${km.toFixed(1)} km entfernt`;
-    prompt = `Sei mein charmanter Reiseführer. Ich stehe gerade an der Algarve/Costa Vicentina, ${dist} bei „${name}". `+
-             `Erzähl mir in rund 30 Sekunden lebendig und wertig das Spannendste über diesen Ort – Geschichte, Atmosphäre, `+
-             `ein besonderer Blickwinkel – und schließe mit einem echten Geheimtipp. Locker, aber niveauvoll, auf Deutsch.`;
-  } else {
-    prompt = `Sei mein charmanter Reiseführer. Ich stehe gerade an diesen Koordinaten in Portugal: ${lat.toFixed(4)}, ${lon.toFixed(4)}. `+
-             `Erzähl mir in rund 30 Sekunden lebendig, was hier oder in unmittelbarer Nähe interessant ist, und gib mir einen Geheimtipp. Auf Deutsch.`;
+    return `Sei mein charmanter Reiseführer. Ich stehe gerade an der Algarve/Costa Vicentina, ${dist} bei „${name}“. `+
+           `Erzähl mir in rund 30 Sekunden lebendig und wertig das Spannendste über diesen Ort – Geschichte, Atmosphäre, `+
+           `ein besonderer Blickwinkel – und schließe mit einem echten Geheimtipp. Locker, aber niveauvoll, auf Deutsch.`;
   }
-  return `https://copilot.microsoft.com/?q=${encodeURIComponent(prompt)}`;
+  return `Sei mein charmanter Reiseführer. Ich stehe gerade an diesen Koordinaten in Portugal: ${lat.toFixed(4)}, ${lon.toFixed(4)}. `+
+         `Erzähl mir in rund 30 Sekunden lebendig, was hier oder in unmittelbarer Nähe interessant ist, und gib mir einen Geheimtipp. Auf Deutsch.`;
 }
 function hereAndNowSheet(inner){
   showSheet(`<div class="sheet-kicker">Audioguide · online</div><h3>🎧 Hier &amp; Jetzt</h3>${inner}`);
 }
 function openHereAndNow(){
-  // Sofort ein Sheet öffnen, damit der Nutzer Feedback sieht
   hereAndNowSheet(`<p class="sheet-intro">Ich hole kurz Deinen Standort …</p><div class="han-status">📍 Standort wird ermittelt</div>`);
 
-  const finishWithCoords=(lat,lon,accuracyNote='')=>{
+  const finishWithCoords=(lat,lon)=>{
     const {loc,km}=nearestLocation(lat,lon);
-    const href=copilotGuideHref({name:loc?loc.name:null, lat, lon, km});
+    const prompt=guidePrompt({name:loc?loc.name:null, lat, lon, km});
     const near = loc && km<=50
       ? `<div class="han-place">In Deiner Nähe: <b>${loc.name}</b>${km<0.8?' (direkt hier)':` · ${km.toFixed(1)} km`}</div>${loc.image?`<div class="sheet-hero" style="background-image:url('${loc.image}')"></div>`:''}${loc.summary?`<p class="loc-summary">${loc.summary}</p>`:''}`
       : `<div class="han-place">Kein bekannter Ort in der Nähe – Copilot erzählt Dir trotzdem, was hier interessant ist.</div>`;
     hereAndNowSheet(
       near+
-      `<p class="sheet-intro">Copilot schreibt Dir einen ~30-Sekunden-Reiseführer-Text. Tippe dort auf <b>🔊 Vorlesen</b>, um ihn als Audio zu hören.</p>`+
-      `<div class="button-row"><a class="cta copilot" target="_blank" rel="noopener" href="${href}">🎧 Reiseführer öffnen ↗</a>`+
-      (loc?`<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${lat},${lon}">📍 Auf Karte ↗</a>`:'')+
-      `</div>${accuracyNote?`<div class="meta" style="margin-top:10px">${accuracyNote}</div>`:''}`
+      `<p class="sheet-intro">Copilot schreibt Dir einen ~30-Sekunden-Reiseführer-Text und liest ihn auf Wunsch vor.</p>`+
+      copilotBlock(prompt, '🎧 Reiseführer öffnen')+
+      (loc?`<div class="button-row"><a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${lat},${lon}">📍 Auf Karte ↗</a></div>`:'')
     );
   };
-
   const fallbackToday=(reason)=>{
     const s=tripState();
     const loc=(s.day.locationIds||[]).map(id=>byId[id]).find(Boolean);
     if(loc){
-      const href=copilotGuideHref({name:loc.name, lat:loc.lat, lon:loc.lon, km:0});
+      const prompt=guidePrompt({name:loc.name, lat:loc.lat, lon:loc.lon, km:0});
       hereAndNowSheet(
         `<div class="han-place">${reason} Ich nehme den heutigen Ort: <b>${loc.name}</b></div>`+
         (loc.image?`<div class="sheet-hero" style="background-image:url('${loc.image}')"></div>`:'')+
         (loc.summary?`<p class="loc-summary">${loc.summary}</p>`:'')+
-        `<p class="sheet-intro">Copilot schreibt Dir einen ~30-Sekunden-Text. Tippe dort auf <b>🔊 Vorlesen</b>.</p>`+
-        `<div class="button-row"><a class="cta copilot" target="_blank" rel="noopener" href="${href}">🎧 Reiseführer öffnen ↗</a></div>`
+        copilotBlock(prompt, '🎧 Reiseführer öffnen')
       );
     } else {
       hereAndNowSheet(`<p class="sheet-intro">${reason} Und ich konnte auch keinen Tagesort finden. Versuch es später noch einmal.</p>`);
     }
   };
 
-  if(!('geolocation' in navigator)){
-    fallbackToday('Standort ist auf diesem Gerät nicht verfügbar.');
-    return;
-  }
+  if(!('geolocation' in navigator)){ fallbackToday('Standort ist auf diesem Gerät nicht verfügbar.'); return; }
   navigator.geolocation.getCurrentPosition(
     pos => finishWithCoords(pos.coords.latitude, pos.coords.longitude),
-    err => {
-      const msg = err.code===1 ? 'Standortfreigabe wurde abgelehnt.' : 'Standort konnte nicht ermittelt werden.';
-      fallbackToday(msg);
-    },
+    err => fallbackToday(err.code===1 ? 'Standortfreigabe wurde abgelehnt.' : 'Standort konnte nicht ermittelt werden.'),
     { enableHighAccuracy:true, timeout:8000, maximumAge:60000 }
   );
 }
@@ -291,8 +317,7 @@ function openLocation(id){
   const l = byId[id]; if(!l) return;
   const ch = DB.chapters.find(c=>c.id===l.chapterId);
   const days = DB.days.filter(d=>(d.locationIds||[]).includes(id));
-  const copilotPrompt = `Wir sind mit unserer Familie (zwei Teenager) in Portugal bei ${l.name}. Was können wir heute hier oder in der Nähe unternehmen? Gib 5 konkrete Tipps inkl. Essen und Schlechtwetter-Alternative.`;
-  const copilotHref = `https://copilot.microsoft.com/?q=${encodeURIComponent(copilotPrompt)}`;
+  const prompt = `Wir sind mit unserer Familie (zwei Teenager) in Portugal bei ${l.name}. Was können wir heute hier oder in der Nähe unternehmen? Gib 5 konkrete Tipps inkl. Essen und Schlechtwetter-Alternative.`;
   showSheet(
     (l.image?`<div class="sheet-hero" style="background-image:url('${l.image}')"></div>`:'')+
     `<div class="sheet-kicker">${l.type}</div><h3>${l.name}</h3>`+
@@ -305,8 +330,8 @@ function openLocation(id){
     (days.length?`<ul class="agenda">${days.map(d=>`<li data-day="${d.id}"><b>${fmtDate(d.date)}</b> ${d.title}</li>`).join('')}</ul>`:'')+
     `<div class="button-row"><a class="cta" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lon}">📍 Navigation ↗</a>`+
     (l.website?`<a class="cta secondary" target="_blank" rel="noopener" href="${l.website}">🌐 Weitere Infos ↗</a>`:'')+
-    `<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('Aktivitäten in der Nähe '+l.name)}">✨ Ideen in der Nähe ↗</a>`+
-    `<a class="cta copilot" target="_blank" rel="noopener" href="${copilotHref}">🤖 Frag Copilot ↗</a></div>`
+    `<a class="cta secondary" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('Aktivitäten in der Nähe '+l.name)}">✨ Ideen in der Nähe ↗</a></div>`+
+    copilotBlock(prompt, '🤖 Frag Copilot')
   );
   sheet().querySelectorAll('.agenda li[data-day]').forEach(x=>x.addEventListener('click',()=>openDay(x.dataset.day)));
 }
