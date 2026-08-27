@@ -82,7 +82,7 @@
    "sines",
    "atlantic_basecamp"
   ],
-  "diningRegion": "atlantic",
+  "diningRegion": "none",
   "heroImage": "images/atlantic-cabo-espichel.jpg"
  },
  {
@@ -104,7 +104,7 @@
    "praia_amoreira",
    "monte_clerigo"
   ],
-  "diningRegion": "atlantic"
+  "diningRegion": "none"
  },
  {
   "id": "day_20260902",
