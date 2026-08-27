@@ -1,7 +1,7 @@
 [
-  { "id": "chapter_lisbon", "roman": "I", "title": "Lissabon", "subtitle": "Die Stadt der Entdecker", "dateFrom": "2026-08-28", "dateTo": "2026-08-30", "colorKey": "lisbon", "maps": ["A"], "hero": "images/lisbon-torre.jpg" },
-  { "id": "chapter_atlantic", "roman": "II", "title": "Der wilde Atlantik", "subtitle": "Roadtrip & Atlantic Basecamp", "dateFrom": "2026-08-31", "dateTo": "2026-09-02", "colorKey": "atlantic", "maps": ["B", "C"], "hero": "images/atlantic-hero.jpg" },
-  { "id": "chapter_lagos", "roman": "III", "title": "Lagos", "subtitle": "Goldene Klippen & Meia Praia", "dateFrom": "2026-09-03", "dateTo": "2026-09-06", "colorKey": "lagos", "maps": ["D"], "hero": "images/lagos-hero-ponta.jpg" },
-  { "id": "chapter_golf", "roman": "IV", "title": "Golf Algarve", "subtitle": "Vier Plätze. Vier Charaktere.", "dateFrom": "2026-09-05", "dateTo": "2026-09-09", "colorKey": "golf", "maps": ["E"], "hero": "images/golf-valedolobo.jpg" },
-  { "id": "chapter_resort", "roman": "V", "title": "São Rafael", "subtitle": "Resortfinale an der Algarve", "dateFrom": "2026-09-06", "dateTo": "2026-09-10", "colorKey": "resort", "maps": ["F"], "hero": "images/resort-hero-pool-sunset.jpg" }
+ {"id":"chapter_lisbon","roman":"I","title":"Lissabon","subtitle":"Die Stadt der Entdecker","dateFrom":"2026-08-28","dateTo":"2026-08-30","colorKey":"lisbon","maps":["A"],"hero":"images/lisbon-torre.jpg"},
+ {"id":"chapter_atlantic","roman":"II","title":"Der wilde Atlantik","subtitle":"Roadtrip & Atlantic Basecamp","dateFrom":"2026-08-31","dateTo":"2026-09-02","colorKey":"atlantic","maps":["B"],"hero":"images/atlantic-hero.jpg"},
+ {"id":"chapter_lagos","roman":"III","title":"Lagos","subtitle":"Goldene Klippen & Meia Praia","dateFrom":"2026-09-03","dateTo":"2026-09-06","colorKey":"lagos","maps":[],"hero":"images/lagos-hero-ponta.jpg"},
+ {"id":"chapter_golf","roman":"IV","title":"Golf Algarve","subtitle":"Vier Plätze. Vier Charaktere.","dateFrom":"2026-09-05","dateTo":"2026-09-09","colorKey":"golf","maps":[],"hero":"images/golf-valedolobo.jpg"},
+ {"id":"chapter_resort","roman":"V","title":"São Rafael","subtitle":"Resortfinale an der Algarve","dateFrom":"2026-09-06","dateTo":"2026-09-10","colorKey":"resort","maps":[],"hero":"images/resort-hero-pool-sunset.jpg"}
 ]
