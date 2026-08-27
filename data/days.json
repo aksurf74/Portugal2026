@@ -15,7 +15,8 @@
   "locationIds": [
    "lisbon"
   ],
-  "diningRegion": "reserved"
+  "diningRegion": "reserved",
+  "heroImage": "images/lisbon-fado.jpg"
  },
  {
   "id": "day_20260829",
@@ -34,7 +35,8 @@
   "locationIds": [
    "lisbon"
   ],
-  "diningRegion": "reserved"
+  "diningRegion": "reserved",
+  "heroImage": "images/lisbon-jeronimos.jpg"
  },
  {
   "id": "day_20260830",
@@ -53,7 +55,8 @@
   "locationIds": [
    "lisbon"
   ],
-  "diningRegion": "reserved"
+  "diningRegion": "reserved",
+  "heroImage": "images/lisbon-torre.jpg"
  },
  {
   "id": "day_20260831",
@@ -79,7 +82,8 @@
    "sines",
    "atlantic_basecamp"
   ],
-  "diningRegion": "atlantic"
+  "diningRegion": "atlantic",
+  "heroImage": "images/atlantic-cabo-espichel.jpg"
  },
  {
   "id": "day_20260901",
@@ -196,7 +200,7 @@
    "Lunch Lagos",
    "Fahrt Albufeira",
    "Check-in NAU São Rafael",
-   "Erster AI-Abend"
+   "Erster All-Inclusive-Abend"
   ],
   "locationIds": [
    "ponta_piedade",
@@ -215,7 +219,7 @@
    "08:10 Abfahrt",
    "09:28 Tee Time Salgados",
    "Pool & Strand",
-   "AI-Abend"
+   "All-Inclusive-Abend"
   ],
   "locationIds": [
    "salgados",
@@ -235,7 +239,7 @@
    "08:20 Abfahrt",
    "09:50 Tee Time O'Connor Jnr.",
    "Pool & Strand",
-   "AI-Abend"
+   "All-Inclusive-Abend"
   ],
   "locationIds": [
    "oconnor",
