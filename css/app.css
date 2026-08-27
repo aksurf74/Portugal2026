@@ -88,3 +88,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;line-height
 .sr-item .badge.img{background-size:cover;background-position:center}.sr-item .tt{font-weight:600}.sr-item .ss{font-size:.76rem;color:#6b7671}.sr-empty{color:#6b7671;text-align:center;padding:30px}
 .foot{padding:18px 18px 40px;color:#8a938e;font-size:.72rem;text-align:center;line-height:1.5}
 @media(max-width:390px){.kpis{gap:6px;padding-left:10px;padding-right:10px}.kpi{padding:12px 3px}.kpi span{font-size:.56rem}.weather-list{grid-template-columns:1fr}}
+/* ---------- RC4: 🎧 Hier & Jetzt ---------- */
+.han-status{background:#eef3ef;border-radius:12px;padding:12px 14px;color:#4a5a52;font-weight:600;margin-top:6px}
+.han-place{font-size:.95rem;color:#33413b;margin:10px 0;line-height:1.5}
+.han-place b{color:var(--deep)}
