@@ -1,0 +1,59 @@
+[
+  {
+    "id": "portas_castelo",
+    "name": "Portas do Castelo Apartments",
+    "city": "Lissabon",
+    "dates": "28.–31.08.2026",
+    "nights": 3,
+    "image": "images/lisbon-stay-aussen.jpg",
+    "address": "Escadinhas de São Crispim 8, 1100-510 Lisboa",
+    "description": "Unser Einstieg mitten im historischen Lissabon. Kurze Wege nach Alfama, zu den Miradouros und zum Abendprogramm mit Fado und Tejo-Blick. Ideal, um die Stadt zu Fuß zu erleben und für die Ausflüge nach Belém und Cascais.",
+    "checkin": "Early Access angefragt; sonst Gepäckabgabe",
+    "checkout": "31.08. vor Mietwagenübernahme",
+    "features": ["Alfama fußläufig", "historische Lage", "Apartment für 4"],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Escadinhas%20de%20S%C3%A3o%20Crispim%208%2C%201100-510%20Lisboa"
+  },
+  {
+    "id": "atlantic_basecamp",
+    "name": "Atlantic Basecamp",
+    "city": "Aljezur",
+    "dates": "31.08.–03.09.2026",
+    "nights": 3,
+    "image": "images/atlantic-basecamp-pool.jpg",
+    "address": "Urbanização do Espartal, 8670 Aljezur",
+    "description": "Unser ruhiger Atlantik-Stützpunkt für Natur-, Strand- und flexible Familientage. Von hier erreichen wir Praia da Amoreira, Monte Clérigo, Arrifana und Carrapateira in wenigen Minuten. Pool, Fahrräder sowie Surf- und Beach-Equipment machen spontane Tageswechsel einfach.",
+    "checkin": "Self Check-in über Schlüsselbox",
+    "checkout": "03.09. vor Weiterfahrt über Sagres nach Lagos",
+    "features": ["Pool", "Fahrräder", "Surf- & Beach-Equipment", "Selbstversorgung"],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Urbaniza%C3%A7%C3%A3o%20do%20Espartal%2C%208670%20Aljezur"
+  },
+  {
+    "id": "vila_palmeira",
+    "name": "Vila Palmeira Beach Resort",
+    "city": "Lagos",
+    "dates": "03.–06.09.2026",
+    "nights": 3,
+    "image": "images/lagos-vila-balkon.jpg",
+    "address": "Estrada da Meia Praia, 8601-903 Lagos",
+    "description": "Die passende Basis für Meia Praia, Lagos Altstadt, Ponta da Piedade und den ersten Golftag. Strandnähe und Pool geben Freiheit, während Ausflüge, Schlägerlogistik und Palmares gut erreichbar bleiben.",
+    "checkin": "ab 16:30 Uhr",
+    "checkout": "bis 11:00 Uhr",
+    "features": ["Meia Praia", "Pool", "Balkon & Garten", "Basis für Lagos"],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Estrada%20da%20Meia%20Praia%2C%208601-903%20Lagos"
+  },
+  {
+    "id": "nau_sao_rafael",
+    "name": "NAU São Rafael Suites",
+    "city": "Albufeira",
+    "dates": "06.–10.09.2026",
+    "nights": 4,
+    "image": "images/resort-hero-pool-sunset.jpg",
+    "address": "Sesmarias, 8200-613 Albufeira",
+    "description": "Unser entspanntes Finale mit All Inclusive, Pool, Praia de São Rafael und kurzen Wegen zu den drei verbleibenden Golfrunden. Schwerpunkt ist Erholung und Familienzeit; Restaurantplanung außerhalb des Resorts ist hier bewusst kein Muss.",
+    "checkin": "ab 16:00 Uhr",
+    "checkout": "bis 11:00 Uhr; am Abreisetag früher Check-out",
+    "features": ["All Inclusive", "Pool & Strand", "Familienzeit", "Basis für Salgados, O'Connor & Vale do Lobo"],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Sesmarias%2C%208200-613%20Albufeira",
+    "website": "https://www.nauhotels.com/en/nau-sao-rafael-suites/"
+  }
+]

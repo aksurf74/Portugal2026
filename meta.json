@@ -1,2 +1,16 @@
-{"schemaVersion":"4.0.0","trip":{"title":"Portugal 2026","subtitle":"Alexander · Sabine · Aaron · Anna","startDate":"2026-08-28","endDate":"2026-09-10","kpis":[{"value":"14","label":"Tage"},{"value":"4","label":"Unterkünfte"},{"value":"4","label":"Golfplätze"},{"value":"1","label":"Roadtrip"}],
-"heroCollage":["images/lagos-hero-ponta.jpg","images/lisbon-torre.jpg","images/golf-valedolobo.jpg","images/atlantic-amoreira.jpg","images/resort-hero-pool-sunset.jpg"]}}
+{
+  "schemaVersion": "5.0.0-rc1",
+  "trip": {
+    "title": "Portugal 2026",
+    "subtitle": "Alexander · Sabine · Aaron · Anna",
+    "startDate": "2026-08-28",
+    "endDate": "2026-09-10",
+    "heroCollage": [
+      "images/lagos-hero-ponta.jpg",
+      "images/lisbon-torre.jpg",
+      "images/golf-valedolobo.jpg",
+      "images/atlantic-amoreira.jpg",
+      "images/resort-hero-pool-sunset.jpg"
+    ]
+  }
+}
