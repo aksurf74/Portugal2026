@@ -1,5 +1,1 @@
-{ "version":"5.0.0-rc1", "cards":[
- {"id":"tripday","title":"Reisetag"},
- {"id":"accommodations","title":"Unterkünfte"},
- {"id":"weather","title":"Wetter"},
- {"id":"today","title":"Heute"} ] }
+{"version":"5.0.0-rc2","cards":[{"id":"tripday","title":"Reisetag"},{"id":"accommodations","title":"Unterkünfte"},{"id":"weather","title":"Wetter"},{"id":"today","title":"Heute"}]}
